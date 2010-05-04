@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+  Ivy configuration for PageSeeder Core module.
+-->
+<ivy-module version="2.0">
+  <info organisation="weborganic" module="wo-flint-tika">
+    <license name="Proprietary"/>
+    <description homepage="http://team.pageseeder.com"/>
+  </info>
+  <configurations defaultconfmapping="core->default;runtime->runtime(default)">
+     <conf name="core" transitive="false" visibility="private" description="Always required"/>
+     <conf name="default" extends="core" transitive="false" description="Needed for compilation only"/>
+     <conf name="runtime" extends="core" transitive="true" description="Everything needed to run this module" />
+  </configurations>
+  <dependencies>
+    <dependency org="weborganic" name="wo-flint"                   rev="latest.integration" conf="core"/>
+    <dependency org="objectweb"  name="asm"                        rev="3.2"                conf="core"/>
+    <dependency org="apache"     name="commons-compress"           rev="1.0"                conf="core"/>
+    <dependency org="apache"     name="commons-logging"            rev="1.0.4"              conf="core"/>
+    <dependency org="dom4j"      name="dom4j"                      rev="1.6.1"              conf="core"/>
+    <dependency org="javax"      name="geronimo-stax-api_1.0_spec" rev="1.0"                conf="core"/>
+    <dependency org="apache"     name="log4j"                      rev="1.2.15"             conf="core"/>
+    <dependency org="drew"       name="metadata-extractor"         rev="2.4.0-beta-1"       conf="core"/>
+    <dependency org="apache"     name="pdfbox"                     rev="1.0.0"              conf="core"/>
+    <dependency org="apache"     name="poi"                        rev="3.6-20091214"       conf="core"/>
+    <dependency org="apache"     name="poi-ooxml"                  rev="3.6-20091214"       conf="core"/>
+    <dependency org="apache"     name="poi-ooxml-schemas"          rev="3.6-20091214"       conf="core"/>
+    <dependency org="apache"     name="poi-scratchpad"             rev="3.6-20091214"       conf="core"/>
+    <dependency org="ccil"       name="tagsoup"                    rev="1.2"                conf="core"/>
+    <dependency org="apache"     name="tika-core"                  rev="0.6"                conf="core"/>
+    <dependency org="apache"     name="tika-parsers"               rev="0.6"                conf="core"/>
+    <dependency org="apache"     name="xmlbeans"                   rev="2.3.0"              conf="core"/>
+  </dependencies>
+</ivy-module>
