@@ -11,6 +11,7 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.log4j.Logger;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.weborganic.flint.IndexException;
@@ -24,6 +25,7 @@ import org.xml.sax.ContentHandler;
  * @version 25 March 2010
  */
 public class TikaTranslator implements ContentTranslator {
+  private static final Logger logger = Logger.getLogger(TikaTranslator.class);
   /**
    * The factory used to produce an output handler
    */
@@ -42,6 +44,7 @@ public class TikaTranslator implements ContentTranslator {
   @Override
   public Reader translate(Content content) throws IndexException {
     try {
+      logger.debug("Attempting to translate content "+content.toString());
       // TODO add metadata?
       Metadata metadata = new Metadata();
       // create output stream
@@ -50,6 +53,7 @@ public class TikaTranslator implements ContentTranslator {
       // create reader on results
       return new StringReader(new String(out.toByteArray(), "UTF-8"));
     } catch (Exception e) {
+      logger.error("Failed to translate content "+content.toString(), e);
       return null;
     }
   }
