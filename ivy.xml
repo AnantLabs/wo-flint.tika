@@ -21,7 +21,8 @@
     <dependency org="javax"      name="geronimo-stax-api_1.0_spec" rev="1.0"                conf="core"/>
     <dependency org="apache"     name="log4j"                      rev="1.2.15"             conf="core"/>
     <dependency org="drew"       name="metadata-extractor"         rev="2.4.0-beta-1"       conf="core"/>
-    <dependency org="apache"     name="pdfbox"                     rev="1.0.0"              conf="core"/>
+    <dependency org="apache"     name="pdfbox"                     rev="1.1.0"              conf="core"/>
+    <dependency org="apache"     name="fontbox"                    rev="1.1.0"              conf="core"/>
     <dependency org="apache"     name="poi"                        rev="3.6-20091214"       conf="core"/>
     <dependency org="apache"     name="poi-ooxml"                  rev="3.6-20091214"       conf="core"/>
     <dependency org="apache"     name="poi-ooxml-schemas"          rev="3.6-20091214"       conf="core"/>
