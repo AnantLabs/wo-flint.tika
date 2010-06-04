@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tika.config.TikaConfig;
-import org.apache.tika.parser.AutoDetectParser;
 import org.weborganic.flint.content.ContentTranslator;
 import org.weborganic.flint.content.ContentTranslatorFactory;
 /**
  * Tika translator factory.
  * 
  * @author Jean-Baptiste Reure
- * @version 25 March 2010
+ * @version 04 June 2010
  */
 public class TikaTranslatorFactory implements ContentTranslatorFactory {
   /**
@@ -19,19 +18,14 @@ public class TikaTranslatorFactory implements ContentTranslatorFactory {
    */
   private final TikaConfig tikaconfig;
   /**
-   * the parser used by the translator
-   */
-  private final AutoDetectParser parser;
-  /**
    * create the factory
    */
   public TikaTranslatorFactory() {
     this.tikaconfig = TikaConfig.getDefaultConfig();
-    this.parser = new AutoDetectParser(tikaconfig);
   }
   @Override
   public ContentTranslator createTranslator(String mimeType) {
-    return new TikaTranslator(this.parser);
+    return new TikaTranslator();
   }
   @Override
   public List<String> getMimeTypesSupported() {

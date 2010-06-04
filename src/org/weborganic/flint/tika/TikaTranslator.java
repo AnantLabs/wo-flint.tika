@@ -12,6 +12,7 @@ import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.log4j.Logger;
+import org.apache.tika.config.TikaConfig;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.weborganic.flint.IndexException;
@@ -33,23 +34,19 @@ public class TikaTranslator implements ContentTranslator {
   /**
    * The object used to parse the 
    */
-  private final AutoDetectParser tikaParser;
-  /**
-   * Create a new translator using the provided parser
-   * @param parser the parser to use
-   */
-  public TikaTranslator(AutoDetectParser parser) {
-    this.tikaParser = parser;
-  }
+  private final static AutoDetectParser TIKA_PARSER = new AutoDetectParser(TikaConfig.getDefaultConfig());
+  
   @Override
   public Reader translate(Content content) throws IndexException {
+    // check for deleted content
+    if (content.isDeleted()) return null;
     try {
       logger.debug("Attempting to translate content "+content.toString());
       // TODO add metadata?
       Metadata metadata = new Metadata();
       // create output stream
       ByteArrayOutputStream out = new ByteArrayOutputStream();
-      this.tikaParser.parse(content.getSource(), getHandler(out), metadata);
+      TIKA_PARSER.parse(content.getSource(), getHandler(out), metadata);
       // create reader on results
       return new StringReader(new String(out.toByteArray(), "UTF-8"));
     } catch (Exception e) {
