@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.TransformerConfigurationException;
@@ -19,6 +20,9 @@ import org.weborganic.flint.IndexException;
 import org.weborganic.flint.content.Content;
 import org.weborganic.flint.content.ContentTranslator;
 import org.xml.sax.ContentHandler;
+
+import com.topologi.diffx.xml.XMLWriter;
+import com.topologi.diffx.xml.XMLWriterImpl;
 /**
  * This translator uses Tika.
  * 
@@ -42,13 +46,40 @@ public class TikaTranslator implements ContentTranslator {
     if (content.isDeleted()) return null;
     try {
       logger.debug("Attempting to translate content "+content.toString());
-      // TODO add metadata?
+      // include metadata
       Metadata metadata = new Metadata();
       // create output stream
       ByteArrayOutputStream out = new ByteArrayOutputStream();
       TIKA_PARSER.parse(content.getSource(), getHandler(out), metadata);
+      StringWriter sw = new StringWriter();
+      XMLWriter xml = new XMLWriterImpl(sw);
+      xml.openElement("root");
+      // metadata
+      String[] mnames = metadata.names();
+      if (mnames != null && mnames.length > 0) {
+        xml.openElement("metadata");
+        for (int i = 0; i < mnames.length; i++) {
+          xml.openElement("property");
+          xml.attribute("name", mnames[i]);
+          if (metadata.isMultiValued(mnames[i])) {
+            String[] values = metadata.getValues(mnames[i]);
+            for (int j = 0; j < values.length; j++)
+              xml.element("string", values[j]);
+          } else
+            xml.writeText(metadata.get(mnames[i]));
+          xml.closeElement();
+        }
+        // end metadata
+        xml.closeElement();
+      }
+      // content
+      xml.openElement("content");
+      xml.writeXML(new String(out.toByteArray(), "UTF-8"));
+      xml.closeElement();
+      // end root
+      xml.closeElement();
       // create reader on results
-      return new StringReader(new String(out.toByteArray(), "UTF-8"));
+      return new StringReader(sw.toString());
     } catch (Exception e) {
       logger.error("Failed to translate content "+content.toString(), e);
       return null;
@@ -64,8 +95,8 @@ public class TikaTranslator implements ContentTranslator {
   private ContentHandler getHandler(OutputStream out) throws TransformerConfigurationException {
     TransformerHandler handler = factory.newTransformerHandler();
     handler.getTransformer().setOutputProperty(OutputKeys.METHOD, "xml");
-    handler.getTransformer().setOutputProperty(OutputKeys.INDENT, "yes");
     handler.getTransformer().setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+    handler.getTransformer().setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
     handler.setResult(new StreamResult(out));
     return handler;
   }

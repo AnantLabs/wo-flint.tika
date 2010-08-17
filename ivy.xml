@@ -14,6 +14,7 @@
   </configurations>
   <dependencies>
     <dependency org="weborganic" name="wo-flint"                   rev="latest.integration" conf="core"/>
+    <dependency org="weborganic" name="wo-diffx"                   rev="latest.milestone"   conf="core"/>
     <dependency org="objectweb"  name="asm"                        rev="3.2"                conf="core"/>
     <dependency org="apache"     name="commons-compress"           rev="1.0"                conf="core"/>
     <dependency org="apache"     name="commons-logging"            rev="1.0.4"              conf="core"/>
