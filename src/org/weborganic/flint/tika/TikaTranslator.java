@@ -14,6 +14,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.apache.log4j.Logger;
 import org.apache.tika.config.TikaConfig;
+import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.weborganic.flint.IndexException;
@@ -49,8 +50,15 @@ public class TikaTranslator implements ContentTranslator {
       // include metadata
       Metadata metadata = new Metadata();
       // create output stream
-      ByteArrayOutputStream out = new ByteArrayOutputStream();
-      TIKA_PARSER.parse(content.getSource(), getHandler(out), metadata);
+      String xmlContent;
+      try {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        TIKA_PARSER.parse(content.getSource(), getHandler(out), metadata);
+        xmlContent = new String(out.toByteArray(), "UTF-8");
+      } catch (TikaException te) {
+        // should be HTML??
+        xmlContent = "<error>"+(te.getMessage() == null ? "Unknown error while reading content in TIKA" : te.getMessage())+"</error>";
+      }
       StringWriter sw = new StringWriter();
       XMLWriter xml = new XMLWriterImpl(sw);
       xml.openElement("root");
@@ -74,7 +82,7 @@ public class TikaTranslator implements ContentTranslator {
       }
       // content
       xml.openElement("content");
-      xml.writeXML(new String(out.toByteArray(), "UTF-8"));
+      xml.writeXML(xmlContent);
       xml.closeElement();
       // end root
       xml.closeElement();
