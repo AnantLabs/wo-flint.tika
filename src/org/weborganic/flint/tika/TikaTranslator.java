@@ -1,6 +1,7 @@
 package org.weborganic.flint.tika;
 
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
@@ -51,13 +52,16 @@ public class TikaTranslator implements ContentTranslator {
       Metadata metadata = new Metadata();
       // create output stream
       String xmlContent;
+      InputStream in = content.getSource();
       try {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        TIKA_PARSER.parse(content.getSource(), getHandler(out), metadata);
+        TIKA_PARSER.parse(in, getHandler(out), metadata);
         xmlContent = new String(out.toByteArray(), "UTF-8");
       } catch (TikaException te) {
         // should be HTML??
         xmlContent = "<error>"+(te.getMessage() == null ? "Unknown error while reading content in TIKA" : te.getMessage())+"</error>";
+      } finally {
+        in.close();
       }
       StringWriter sw = new StringWriter();
       XMLWriter xml = new XMLWriterImpl(sw);
