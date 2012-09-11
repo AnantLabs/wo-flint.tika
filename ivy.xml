@@ -20,7 +20,6 @@
     <dependency org="apache"     name="commons-logging"            rev="1.0.4"              conf="core"/>
     <dependency org="dom4j"      name="dom4j"                      rev="1.6.1"              conf="core"/>
     <dependency org="javax"      name="geronimo-stax-api_1.0_spec" rev="1.0"                conf="core"/>
-    <dependency org="apache"     name="log4j"                      rev="1.2.15"             conf="core"/>
     <dependency org="drew"       name="metadata-extractor"         rev="2.4.0-beta-1"       conf="core"/>
     <dependency org="apache"     name="pdfbox"                     rev="1.1.0"              conf="core"/>
     <dependency org="apache"     name="fontbox"                    rev="1.1.0"              conf="core"/>
@@ -32,5 +31,6 @@
     <dependency org="apache"     name="tika-core"                  rev="0.6"                conf="core"/>
     <dependency org="apache"     name="tika-parsers"               rev="0.6"                conf="core"/>
     <dependency org="apache"     name="xmlbeans"                   rev="2.3.0"              conf="core"/>
+    <dependency org="slf4j"      name="slf4j-api"                  rev="1.6.6"              conf="core"/>
   </dependencies>
 </ivy-module>

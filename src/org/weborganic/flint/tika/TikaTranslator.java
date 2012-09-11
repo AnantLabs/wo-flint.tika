@@ -12,11 +12,12 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 
-import org.apache.log4j.Logger;
 import org.apache.tika.config.TikaConfig;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.weborganic.flint.IndexException;
 import org.weborganic.flint.content.Content;
 import org.weborganic.flint.content.ContentTranslator;
@@ -24,29 +25,36 @@ import org.xml.sax.ContentHandler;
 
 import com.topologi.diffx.xml.XMLWriter;
 import com.topologi.diffx.xml.XMLWriterImpl;
+
 /**
  * This translator uses Tika.
- * 
+ *
  * @author Jean-Baptiste Reure
  * @version 25 March 2010
  */
 public class TikaTranslator implements ContentTranslator {
-  private static final Logger logger = Logger.getLogger(TikaTranslator.class);
+
+  /**
+   * Logger
+   */
+  private static final Logger LOGGER = LoggerFactory.getLogger(TikaTranslator.class);
+
   /**
    * The factory used to produce an output handler
    */
   private final static SAXTransformerFactory factory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
+
   /**
-   * The object used to parse the 
+   * The object used to parse the
    */
   private final static AutoDetectParser TIKA_PARSER = new AutoDetectParser(TikaConfig.getDefaultConfig());
-  
+
   @Override
   public Reader translate(Content content) throws IndexException {
     // check for deleted content
     if (content.isDeleted()) return null;
     try {
-      logger.debug("Attempting to translate content "+content.toString());
+      LOGGER.debug("Attempting to translate content "+content.toString());
       // include metadata
       Metadata metadata = new Metadata();
       // create output stream
@@ -66,15 +74,15 @@ public class TikaTranslator implements ContentTranslator {
       String[] mnames = metadata.names();
       if (mnames != null && mnames.length > 0) {
         xml.openElement("metadata");
-        for (int i = 0; i < mnames.length; i++) {
+        for (String mname : mnames) {
           xml.openElement("property");
-          xml.attribute("name", mnames[i]);
-          if (metadata.isMultiValued(mnames[i])) {
-            String[] values = metadata.getValues(mnames[i]);
-            for (int j = 0; j < values.length; j++)
-              xml.element("string", values[j]);
+          xml.attribute("name", mname);
+          if (metadata.isMultiValued(mname)) {
+            String[] values = metadata.getValues(mname);
+            for (String value : values)
+              xml.element("string", value);
           } else
-            xml.writeText(metadata.get(mnames[i]));
+            xml.writeText(metadata.get(mname));
           xml.closeElement();
         }
         // end metadata
@@ -89,13 +97,14 @@ public class TikaTranslator implements ContentTranslator {
       // create reader on results
       return new StringReader(sw.toString());
     } catch (Exception e) {
-      logger.error("Failed to translate content "+content.toString(), e);
+      LOGGER.error("Failed to translate content "+content.toString(), e);
       return null;
     }
   }
+
   /**
    * Create a new handler with an XML output (will be XHTML).
-   * 
+   *
    * @param out the stream to use as output
    * @return the handler used by the Tika parser
    * @throws TransformerConfigurationException if the factory cannot create a new handler.
