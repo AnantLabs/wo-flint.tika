@@ -13,24 +13,24 @@
      <conf name="runtime" extends="core" transitive="true" description="Everything needed to run this module" />
   </configurations>
   <dependencies>
-    <dependency org="weborganic" name="wo-flint"                   rev="latest.integration" conf="core"/>
-    <dependency org="weborganic" name="wo-diffx"                   rev="latest.milestone"   conf="core"/>
-    <dependency org="objectweb"  name="asm"                        rev="3.2"                conf="core"/>
-    <dependency org="apache"     name="commons-compress"           rev="1.0"                conf="core"/>
-    <dependency org="apache"     name="commons-logging"            rev="1.0.4"              conf="core"/>
-    <dependency org="dom4j"      name="dom4j"                      rev="1.6.1"              conf="core"/>
-    <dependency org="javax"      name="geronimo-stax-api_1.0_spec" rev="1.0"                conf="core"/>
-    <dependency org="drew"       name="metadata-extractor"         rev="2.4.0-beta-1"       conf="core"/>
-    <dependency org="apache"     name="pdfbox"                     rev="1.1.0"              conf="core"/>
-    <dependency org="apache"     name="fontbox"                    rev="1.1.0"              conf="core"/>
-    <dependency org="apache"     name="poi"                        rev="3.6-20091214"       conf="core"/>
-    <dependency org="apache"     name="poi-ooxml"                  rev="3.6-20091214"       conf="core"/>
-    <dependency org="apache"     name="poi-ooxml-schemas"          rev="3.6-20091214"       conf="core"/>
-    <dependency org="apache"     name="poi-scratchpad"             rev="3.6-20091214"       conf="core"/>
-    <dependency org="ccil"       name="tagsoup"                    rev="1.2"                conf="core"/>
-    <dependency org="apache"     name="tika-core"                  rev="0.6"                conf="core"/>
-    <dependency org="apache"     name="tika-parsers"               rev="0.6"                conf="core"/>
-    <dependency org="apache"     name="xmlbeans"                   rev="2.3.0"              conf="core"/>
-    <dependency org="slf4j"      name="slf4j-api"                  rev="1.6.6"              conf="core"/>
+    <dependency org="weborganic" name="wo-flint"                   rev="latest.milestone" conf="core"/>
+    <dependency org="weborganic" name="wo-diffx"                   rev="latest.milestone" conf="core"/>
+    <dependency org="objectweb"  name="asm"                        rev="3.2"              conf="core"/>
+    <dependency org="apache"     name="commons-compress"           rev="1.0"              conf="core"/>
+    <dependency org="apache"     name="commons-logging"            rev="1.0.4"            conf="core"/>
+    <dependency org="dom4j"      name="dom4j"                      rev="1.6.1"            conf="core"/>
+    <dependency org="javax"      name="geronimo-stax-api_1.0_spec" rev="1.0"              conf="core"/>
+    <dependency org="drew"       name="metadata-extractor"         rev="2.4.0-beta-1"     conf="core"/>
+    <dependency org="apache"     name="pdfbox"                     rev="1.1.0"            conf="core"/>
+    <dependency org="apache"     name="fontbox"                    rev="1.1.0"            conf="core"/>
+    <dependency org="apache"     name="poi"                        rev="3.6-20091214"     conf="core"/>
+    <dependency org="apache"     name="poi-ooxml"                  rev="3.6-20091214"     conf="core"/>
+    <dependency org="apache"     name="poi-ooxml-schemas"          rev="3.6-20091214"     conf="core"/>
+    <dependency org="apache"     name="poi-scratchpad"             rev="3.6-20091214"     conf="core"/>
+    <dependency org="ccil"       name="tagsoup"                    rev="1.2"              conf="core"/>
+    <dependency org="apache"     name="tika-core"                  rev="0.6"              conf="core"/>
+    <dependency org="apache"     name="tika-parsers"               rev="0.6"              conf="core"/>
+    <dependency org="apache"     name="xmlbeans"                   rev="2.3.0"            conf="core"/>
+    <dependency org="slf4j"      name="slf4j-api"                  rev="1.6.6"            conf="core"/>
   </dependencies>
 </ivy-module>
