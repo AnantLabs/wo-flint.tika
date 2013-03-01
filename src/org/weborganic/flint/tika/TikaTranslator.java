@@ -19,8 +19,8 @@ import org.apache.tika.parser.AutoDetectParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.weborganic.flint.IndexException;
-import org.weborganic.flint.content.Content;
-import org.weborganic.flint.content.ContentTranslator;
+import org.weborganic.flint.api.Content;
+import org.weborganic.flint.api.ContentTranslator;
 import org.xml.sax.ContentHandler;
 
 import com.topologi.diffx.xml.XMLWriter;

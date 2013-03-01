@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tika.config.TikaConfig;
-import org.weborganic.flint.content.ContentTranslator;
-import org.weborganic.flint.content.ContentTranslatorFactory;
+import org.weborganic.flint.api.ContentTranslator;
+import org.weborganic.flint.api.ContentTranslatorFactory;
 
 /**
  * Tika translator factory.
